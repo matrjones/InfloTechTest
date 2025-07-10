@@ -1,0 +1,35 @@
+﻿@model UserManagement.Models.User
+
+<h2>Add User</h2>
+<form asp-action="AddNewUser">
+    <div class="mb-3">
+        <label asp-for="Forename" class="form-label"></label><span class="text-danger">*</span>
+        <input asp-for="Forename" class="form-control" required/>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Surname" class="form-label"></label><span class="text-danger">*</span>
+        <input asp-for="Surname" class="form-control" required/>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DateOfBirth" class="form-label">Date of Birth</label><span class="text-danger">*</span>
+        <input asp-for="DateOfBirth" type="date" class="form-control" required/>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label><span class="text-danger">*</span>
+        <input asp-for="Email" type="email" class="form-control" required/>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="IsActive" class="form-label"></label>
+        <input asp-for="IsActive" class="form-input" />
+    </div>
+
+    <div class="d-flex justify-content-between">
+        <a asp-controller="Users" asp-action="List" class="btn btn-danger">Cancel</a>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+

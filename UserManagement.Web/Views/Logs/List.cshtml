@@ -1,0 +1,51 @@
+﻿@model UserManagement.Web.Models.Logs.LogListViewModel
+
+<h2>Log List</h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>User</th>
+                <th>Type</th>
+                <th style="width: 1px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>
+                        @item.Id
+                    </td>
+                    <td>
+                        @item.UserName
+                    </td>
+                    <td>
+                        @item.Type.ToString()
+                    </td>
+                    <td>
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" id="btnToggleActions">
+                                Actions
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="btnToggleActions">
+                                <li><a asp-controller="Logs" asp-action="View" asp-route-id="@item.Id" class="dropdown-item">View</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <div class="btn-group" role="group">
+        <a asp-controller="Logs" asp-action="List" class="btn btn-default">Show All</a>
+        <a asp-controller="Logs" asp-action="FilterCreated" class="btn btn-default">Created</a>
+        <a asp-controller="Logs" asp-action="FilterViewed" class="btn btn-default">Viewed</a>
+        <a asp-controller="Logs" asp-action="FilterModified" class="btn btn-default">Modified</a>
+        <a asp-controller="Logs" asp-action="FilterDeleted" class="btn btn-default">Deleted</a>
+    </div>
+</div>

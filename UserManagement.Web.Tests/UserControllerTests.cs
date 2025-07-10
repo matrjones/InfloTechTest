@@ -20,7 +20,36 @@ public class UserControllerTests
         // Assert: Verifies that the action of the method under test behaves as expected.
         result.Model
             .Should().BeOfType<UserListViewModel>()
-            .Which.Items.Should().BeEquivalentTo(users);
+            .Which.Items.Should().BeEquivalentTo(users, options => options
+                .ExcludingMissingMembers());
+    }
+
+    [Fact]
+    public void List_WhenServiceReturnsActiveUsers_OnlyActiveUsersReturned()
+    {
+        // Arrange: Initializes objects and sets the value of the data that is passed to the method under test.
+        var controller = CreateController();
+        var users = SetupUsers();
+
+        // Act: Invokes the method under test with the arranged parameters.
+        var result = controller.Active();
+
+        // Assert: Verifies that the action of the method under test behaves as expected.
+        result.Model.Should().BeOfType<UserListViewModel>().Which.Items.Should().AllSatisfy(x => x.IsActive.Should().BeTrue());
+    }
+
+    [Fact]
+    public void List_WhenServiceReturnsInactiveUsers_OnlyInactiveUsersReturned()
+    {
+        // Arrange: Initializes objects and sets the value of the data that is passed to the method under test.
+        var controller = CreateController();
+        var users = SetupUsers();
+
+        // Act: Invokes the method under test with the arranged parameters.
+        var result = controller.Inactive();
+
+        // Assert: Verifies that the action of the method under test behaves as expected.
+        result.Model.Should().BeOfType<UserListViewModel>().Which.Items.Should().AllSatisfy(x => x.IsActive.Should().BeFalse());
     }
 
     private User[] SetupUsers(string forename = "Johnny", string surname = "User", string email = "juser@example.com", bool isActive = true)
